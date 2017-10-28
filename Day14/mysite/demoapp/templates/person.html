@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <style>
+        body{
+        color:red;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Person Details : </h1>
+<table>
+
+{% for person in crowd %}
+    <tr><td><strong> {{person.first_name | upper}} {{person.last_name}}</strong></td></tr>
+{% endfor %}
+
+{% if crowd.count is 0 %}
+    Be the first one
+{% elif crowd.count is 1 %}
+    {{crowd.first.first_name}} likes this
+{% elif crowd.count is 2  %}
+    {{crowd.0.first_name}} and {{crowd.1.first_name}} like this
+{% else %}
+   {{crowd.0.first_name}}, {{crowd.1.first_name}} and {{crowd.count }}  people like this
+{% endif %}
+
+
+
+</table>
+
+
+
+</body>
+</html>
