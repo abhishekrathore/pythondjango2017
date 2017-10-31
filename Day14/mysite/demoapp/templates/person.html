@@ -8,11 +8,24 @@
         color:red;
         }
     </style>
+    <link rel="stylesheet" href="/public/animate.css">
 </head>
 <body>
 
 <h1>Person Details : </h1>
-<table>
+<img src="http://lorempixel.com/400/200/" class="animated wobble" alt="">
+<img src="/public/dummy.png" alt="">
+
+   <form action="/demoapp/create" method="post">
+       {% csrf_token %}
+        <input type="text" name="first">
+        <input type="text" name="last">
+        <input type="submit">
+    </form>
+<table class="animated swing">
+
+
+    
 
 {% for person in crowd %}
     <tr><td><strong> {{person.first_name | upper}} {{person.last_name}}</strong></td></tr>
