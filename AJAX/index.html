@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+    </head>
+    <body>
+
+    <h1>Hello World</h1>
+    <h1 id="name">Name</h1>
+    <img id="profile" src="">
+    <button onclick="getdata()">get</button>
+<script>
+
+    function getdata(){
+$.ajax({
+    url: 'https://randomuser.me/api/',
+    dataType: 'json',
+    success: function(data) {
+    
+      var fullName = data.results[0].name.title+" "+data.results[0].name.first+" "+data.results[0].name.last;
+      var url = data.results[0].picture.medium
+      $("#name").text(fullName);
+      $("#profile").attr("src",url)
+   }
+
+  });
+    }
+
+    function getlocation(){
+$.ajax({
+    url: 'https://ipapi.co/103.97.203.2/json/',
+    dataType: 'json',
+    success: function(data) {
+    
+    console.log(data)
+   }
+
+  });
+    }
+
+
+  
+  
+</script>
+        
+    </body>
+</html>
