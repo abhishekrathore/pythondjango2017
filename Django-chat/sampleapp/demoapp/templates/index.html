@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <link href='/public/db.css' rel='stylesheet'>
+
+</head>
+<body>
+<h1>Home Page</h1>
+<!--<figure>-->
+    <!--<img class="filter-ludwig" src="/public/image.jpg" alt="">-->
+<!--</figure>-->
+
+<!--<form action="{%url 'submit' %}" method="POST">-->
+    <!--<input type="text" name="name" id="name">-->
+    <!--<input type="text" name="age" id="age">-->
+    <!--<input type="submit">-->
+<!--</form>-->
+<!--<div id="chatbox">-->
+<!--{% for p in person %}-->
+
+<!--<h4>{{p.name}} {{p.age}}</h4>-->
+<!--{% endfor %}-->
+<!--</div>-->
+
+
+<input id="msg" type="text">
+<button onclick="sendmsg()">Send Msg</button>
+<div id="chatdiv">
+
+</div>
+
+<script>
+
+socket = new WebSocket("ws://" + window.location.host + "/chat/");
+
+socket.onmessage = function(e) {
+    $("#chatdiv").append("<p>"+e.data+"</p>");
+    console.log(e, e.data);
+}
+socket.onopen = function() {
+    socket.send("CONNECTED")
+}
+
+
+function sendmsg(){
+msg = $('#msg').val();
+socket.send(msg);
+$('#msg').val('');
+}
+
+
+
+
+</script>
+
+</body>
+</html>
