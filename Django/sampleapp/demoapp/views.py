@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from .models import Person
 import json
 
@@ -9,9 +11,21 @@ import json
 
 def index(request):
     person = Person.objects.all()
-    print(person[0])
+    # print(person[0])
     context = {"person":person}
-    return render(request,'index.html',context)
+    print(request.user.username)
+    return render(request,'home.html',context)
+
+def chats(request):
+    context = {}
+    if request.user.username:
+        print(request.user.username)
+        context ={"username": request.user.username}
+        return render(request,'chats.html',context)
+    else:
+        return redirect('signupform')
+
+
 
 @csrf_exempt
 def submit(request):
@@ -28,3 +42,28 @@ def getperson(request):
     for p in person:
         people.append({"name":p.name,"age":p.age,"id":p.id})
     return JsonResponse({"people":people})
+
+
+def signupform(request):
+    return render(request,'signup.html')
+
+@csrf_exempt
+def signup(request):
+    username = request.POST.get('email')
+    password = request.POST.get('password')
+    email = request.POST.get('email')
+    user = User.objects.create_user(username, email, password)
+    login(request,user)
+    return redirect('chats')
+
+def loginform(request):
+    return render(request,'login.html')
+
+@csrf_exempt
+def loginfx(request):
+    username = request.POST.get('email')
+    password = request.POST.get('password')
+    user = authenticate(username=username, password=password)
+    login(request,user)
+    return redirect('chats')
+

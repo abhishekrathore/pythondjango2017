@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block title %} Signup {% endblock %}
+
+
+
+{% block content %}
+
+<form action="{%url 'signup' %}" method="POST">
+    <input type="email" name="email" >
+    <input type="password" name="password" >
+    <input type="submit">
+</form>
+{% endblock %}
+

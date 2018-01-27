@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+
+{% block title %} Home Page {% endblock %}
+
+
+
+{% block content %}
+
+<form action="{%url 'submit' %}" method="POST">
+    <input type="text" name="name" id="name">
+    <input type="text" name="age" id="age">
+    <input type="submit">
+</form>
+<div id="chatbox">
+{% for p in person %}
+
+<h4>{{p.name}} {{p.age}}</h4>
+{% endfor %}
+</div>
+<script>
+setInterval(function(){
+$.ajax({url: "/demo/getperson", success: function(result){
+         var max = result.people[result.people.length-1].id
+         console.log(result,max)
+         for
+        $('#chatbox').append("<h1>data</h1>")
+    }});
+    },2000)
+</script>
+
+{% endblock %}

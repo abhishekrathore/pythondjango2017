@@ -25,7 +25,7 @@ SECRET_KEY = 'use77k&!odgf2ejf4ba&08*q_+$dbxu(rj-xp@zc3=g@@_qld)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.100']
 
 
 # Application definition
