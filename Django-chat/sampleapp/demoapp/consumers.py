@@ -14,3 +14,7 @@ def websocket_receive(message):
 
 def websocket_connect(message):
     print('websocket --->CONNECTED')
+    message.reply_channel.send({"accept": True})
+
+def websocket_disconnect(message):
+    print('websocket --->DISCONNECTED')

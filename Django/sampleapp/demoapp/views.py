@@ -4,9 +4,29 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import Person
+from .form import NameForm
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView
+
+
 import json
 
 # Create your views here.
+
+
+
+class PersonListView(ListView):
+    model = Person
+    template_name = 'list.html'
+    context_object_name = 'person_list'
+
+class PersonCreate(CreateView):
+     model = Person
+     fields = ['name','age']
+     template_name = "create.html"
+     success_url = '/demo/index/'
+
+
 
 
 def index(request):
@@ -66,4 +86,23 @@ def loginfx(request):
     user = authenticate(username=username, password=password)
     login(request,user)
     return redirect('chats')
+
+
+def formtest(request):
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        print(form)
+        if form.is_valid:
+            # p = PersonForm(request.POST)
+            # p.save()
+            print(2)
+        else:
+            render(request, 'formtest.html', {'form':form,"is_invalid":True})
+
+        return redirect('chats')
+    else:
+        form = NameForm()
+
+    return render(request, 'formtest.html', {'form':form})
+
 
